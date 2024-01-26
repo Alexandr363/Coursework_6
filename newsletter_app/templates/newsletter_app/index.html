@@ -1,0 +1,87 @@
+{% extends 'newsletter_app/base.html' %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Адресаты для рассылок</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'newsletter:create_client' %}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Создать клиента
+                                </a>
+                                <a href="{% url 'newsletter:client_list' %}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Список всех клиентов
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Конфигурация рассылки</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{% url 'newsletter:create_newsletter' %}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Создать рассылку
+                                </a>
+                                <a href="{% url 'newsletter:newsletter_list' %}"
+                                   class="btn btn-sm btn-outline-secondary">
+                                    Список всех рассылок
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Сообщение для рассылок</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary">
+                                    View
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mt-2">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">Логи рассылок</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary">
+                                    View
+                                </button>
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-secondary">
+                                    Edit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

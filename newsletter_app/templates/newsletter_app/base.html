@@ -1,0 +1,36 @@
+<!doctype html>
+{% load static %}
+<html lang="en" data-bs-theme="auto">
+
+<head>
+    {% include 'newsletter_app/includes/inc_head.html' %}
+</head>
+
+<body>
+<main>
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Меню рассылок</h1>
+                <p class="lead text-body-secondary">Добавьте адресатов рассылки,
+                    и настройки самой рассылки</p>
+                <p>
+                    <a href="{% url 'newsletter:index' %}"
+                       class="btn btn-primary my-2">На главную</a>
+<!--                    <a href="#" class="btn btn-secondary my-2">Secondary-->
+<!--                        action</a>-->
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {% block content %}
+    {% endblock content %}
+
+</main>
+<footer class="text-body-secondary py-5">
+    {% include 'newsletter_app/includes/inc_footer.html' %}
+</footer>
+<script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
+</body>
+</html>

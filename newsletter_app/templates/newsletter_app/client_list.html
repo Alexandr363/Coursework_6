@@ -1,0 +1,46 @@
+{% extends 'newsletter_app/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row text-center">
+        <div class="col-12 mb-3">
+            <a class="btn btn-outline-primary"
+               href="{% url 'newsletter:create_client' %}">
+                Добавить клиента </a>
+        </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+            {% for object in object_list %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <p class="card-text">
+                            ФИО: {{ object.fio }}
+
+                        <p class="card-text">
+                            Комментарий: {{ object.comment }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{% url 'newsletter:detail_client' object.pk %}">
+                                    Посмотреть
+                                </a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{% url 'newsletter:update_client' object.pk %}">
+                                    Изменить
+                                </a>
+                                <a class="btn btn-sm btn-outline-secondary"
+                                   href="{% url 'newsletter:delete_client' object.pk %}">
+                                    Удалить
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
