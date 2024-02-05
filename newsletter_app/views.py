@@ -1,9 +1,10 @@
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, ListView, TemplateView, \
-    DetailView, DeleteView
+from django.views.generic import (CreateView, UpdateView, ListView,
+                                  TemplateView, DetailView, DeleteView)
 
-from newsletter_app.forms import ClientForm, NewsletterForm
-from newsletter_app.models import Client, Newsletter
+from newsletter_app.forms import ClientForm, NewsletterForm, MassageForm, \
+    LogsForm
+from newsletter_app.models import Client, Newsletter, Massage, Logs
 
 
 class IndexTemplateView(TemplateView):
@@ -64,3 +65,59 @@ class NewsletterDeleteView(DeleteView):
 
 class NewsletterListView(ListView):
     model = Newsletter
+
+
+"""__________Massage Views_____________"""
+
+
+class MassageCreateView(CreateView):
+    model = Massage
+    form_class = MassageForm
+    success_url = reverse_lazy('newsletter:massage_list')
+
+
+class MassageDetailView(DetailView):
+    model = Massage
+
+
+class MassageUpdateView(UpdateView):
+    model = Massage
+    form_class = MassageForm
+    success_url = reverse_lazy('newsletter:massage_list')
+
+
+class MassageDeleteView(DeleteView):
+    model = Massage
+    success_url = reverse_lazy('newsletter:massage_list')
+
+
+class MassageListView(ListView):
+    model = Massage
+
+
+"""__________Logs Views_____________"""
+
+
+class LogsCreateView(CreateView):
+    model = Logs
+    form_class = LogsForm
+    success_url = reverse_lazy('newsletter:logs_list')
+
+
+class LogsDetailView(DetailView):
+    model = Logs
+
+
+class LogsUpdateView(UpdateView):
+    model = Logs
+    form_class = LogsForm
+    success_url = reverse_lazy('newsletter:logs_list')
+
+
+class LogsDeleteView(DeleteView):
+    model = Logs
+    success_url = reverse_lazy('newsletter:logs_list')
+
+
+class LogsListView(ListView):
+    model = Logs

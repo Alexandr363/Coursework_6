@@ -28,11 +28,13 @@ class Newsletter(models.Model):
         ('Запущена', 'Started'),
     ]
 
-    time = models.DateTimeField(auto_now=True, verbose_name='время рассылки')
+    time = models.DateTimeField(verbose_name='время рассылки')
     periodicity = models.CharField(max_length=50, choices=PERIODICITY_CHOISES,
                                    verbose_name='периодичность рассылки')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES,
                               verbose_name='статус рассылки')
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,
+                               verbose_name='адресат рассылки', blank=True)
 
     def __str__(self):
         return f'{self.time} - {self.status}'
@@ -40,3 +42,43 @@ class Newsletter(models.Model):
     class Meta:
         verbose_name = 'рассылка'
         verbose_name_plural = 'рассылки'
+
+
+class Massage(models.Model):
+    title = models.CharField(max_length=40, verbose_name='тема письма')
+    content = models.TextField(verbose_name='содержание')
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE,
+                                   null=True, blank=True,
+                                   verbose_name='адресат рассылки')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'сообщение'
+        verbose_name_plural = 'сообщения'
+
+
+class Logs(models.Model):
+
+    ATTEMPT_CHOICES = [
+        ('Успешна', 'Successful'),
+        ('Не успешна', 'Not successful'),
+    ]
+
+    data_of_attempt = models.DateTimeField(verbose_name='дата последней '
+                                                        'попытки')
+    status_attempt = models.CharField(max_length=50, choices=ATTEMPT_CHOICES,
+                                      verbose_name='статус попытки')
+    mail_server_response = models.TextField(verbose_name='ответ почтового '
+                                                         'сервера')
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE,
+                                   null=True, blank=True,
+                                   verbose_name='ответ почтового сервера')
+
+    def __str__(self):
+        return self.status_attempt
+
+    class Meta:
+        verbose_name = 'логи'
+        verbose_name_plural = 'логи'

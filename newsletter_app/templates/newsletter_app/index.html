@@ -45,17 +45,19 @@
             <div class="col">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="card-text">Сообщение для рассылок</p>
+                        <p class="card-text">Сообщения для рассылок</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-secondary">
-                                    View
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-secondary">
-                                    Edit
-                                </button>
+                                <div class="btn-group">
+                                    <a href="{% url 'newsletter:create_massage' %}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Создать сообщение для рассылки
+                                    </a>
+                                    <a href="{% url 'newsletter:massage_list' %}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Список всех логов
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,14 +70,16 @@
                         <p class="card-text">Логи рассылок</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-secondary">
-                                    View
-                                </button>
-                                <button type="button"
-                                        class="btn btn-sm btn-outline-secondary">
-                                    Edit
-                                </button>
+                                <div class="btn-group">
+                                    <a href="{% url 'newsletter:create_logs' %}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Создать логи рассылки
+                                    </a>
+                                    <a href="{% url 'newsletter:logs_list' %}"
+                                       class="btn btn-sm btn-outline-secondary">
+                                        Список всех сообщений
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

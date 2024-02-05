@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from newsletter_app.models import Client, Newsletter
+from newsletter_app.models import Client, Newsletter, Massage
 
 
 @admin.register(Client)
@@ -11,3 +11,8 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(Newsletter)
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('time', 'periodicity', 'status')
+
+
+@admin.register(Massage)
+class MassageAdmin(admin.ModelAdmin):
+    list_display = ('title', 'content')

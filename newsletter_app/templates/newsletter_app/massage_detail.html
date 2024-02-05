@@ -1,0 +1,37 @@
+{% extends 'newsletter_app/base.html' %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Информация о сообщении
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Тема сообщения</td>
+                            <td>{{ object.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Содержание сообщения</td>
+                            <td>{{ object.content }}</td>
+                        </tr>
+                        <tr>
+                            <td>Сообщение для рассылки</td>
+                            <td>{{ object.newsletter }}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
