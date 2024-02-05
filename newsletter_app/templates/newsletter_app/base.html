@@ -17,8 +17,23 @@
                 <p>
                     <a href="{% url 'newsletter:index' %}"
                        class="btn btn-primary my-2">На главную</a>
-<!--                    <a href="#" class="btn btn-secondary my-2">Secondary-->
-<!--                        action</a>-->
+
+                    {% if user.is_authenticated %}
+
+                    <a class="p-2 btn btn-outline-primary"
+                       href="{% url 'users:logout' %}">Выйти</a>
+                    <a class="p-2 btn btn-outline-primary"
+                       href="{% url 'users:profile' %}">Профиль</a>
+
+                    {% else %}
+
+                    <a href="{% url 'users:register' %}"
+                       class="btn btn-primary my-2">Регистрация</a>
+                    <a href="{% url 'users:login' %}"
+                       class="btn btn-primary my-2">Войти</a>
+
+                    {% endif %}
+
                 </p>
             </div>
         </div>
