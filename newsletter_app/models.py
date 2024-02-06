@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -5,6 +6,9 @@ class Client(models.Model):
     fio = models.CharField(max_length=150, verbose_name='ФИО')
     email = models.EmailField(max_length=150, verbose_name='почта')
     comment = models.TextField(verbose_name='комментарий')
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                             null=True, blank=True)
 
     def __str__(self):
         return self.fio
@@ -33,8 +37,10 @@ class Newsletter(models.Model):
                                    verbose_name='периодичность рассылки')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES,
                               verbose_name='статус рассылки')
-    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,
-                               verbose_name='адресат рассылки', blank=True)
+
+    client = models.ManyToManyField(Client)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
+                             null=True, blank=True)
 
     def __str__(self):
         return f'{self.time} - {self.status}'
@@ -47,9 +53,8 @@ class Newsletter(models.Model):
 class Massage(models.Model):
     title = models.CharField(max_length=40, verbose_name='тема письма')
     content = models.TextField(verbose_name='содержание')
-    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE,
-                                   null=True, blank=True,
-                                   verbose_name='адресат рассылки')
+
+    newsletter = models.ManyToManyField(Newsletter)
 
     def __str__(self):
         return self.title

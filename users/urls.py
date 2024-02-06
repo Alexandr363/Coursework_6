@@ -17,5 +17,4 @@ urlpatterns = [
     path('profile/genpassword/', generate_new_password,
          name='generate_new_password'),
     path('verifying/', ver_view),
-
 ]

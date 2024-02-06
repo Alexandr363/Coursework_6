@@ -1,0 +1,37 @@
+{% extends 'newsletter_app/base.html' %}
+
+{% block content %}
+
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        Информация о логах
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <td>Дата последней попытки</td>
+                            <td>{{ object.data_of_attempt }}</td>
+                        </tr>
+                        <tr>
+                            <td>Статус</td>
+                            <td>{{ object.status_attempt }}</td>
+                        </tr>
+                        <tr>
+                            <td>Ответ почтового сервера</td>
+                            <td>{{ object.mail_server_response }}</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="card-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

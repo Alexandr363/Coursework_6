@@ -6,7 +6,7 @@ from newsletter_app.views import ClientListView, ClientCreateView, \
     NewsletterCreateView, NewsletterListView, NewsletterDetailView, \
     NewsletterUpdateView, NewsletterDeleteView, MassageCreateView, \
     MassageListView, MassageDetailView, MassageUpdateView, MassageDeleteView, \
-    LogsCreateView, LogsListView
+    LogsCreateView, LogsListView, LogsDetailView, LogsUpdateView, LogsDeleteView
 
 app_name = NewsletterAppConfig.name
 
@@ -38,10 +38,10 @@ urlpatterns = [
 
 
     path('create_logs/', LogsCreateView.as_view(), name='create_logs'),
-    # path('detail_massage/<int:pk>/', MassageDetailView.as_view(), name='detail_massage'),
-    # path('update_massage/<int:pk>/', MassageUpdateView.as_view(), name='update_massage'),
-    # path('delete_massage/<int:pk>/', MassageDeleteView.as_view(), name='delete_massage'),
-    #
+    path('detail_logs/<int:pk>/', LogsDetailView.as_view(), name='detail_logs'),
+    path('update_logs/<int:pk>/', LogsUpdateView.as_view(), name='update_logs'),
+    path('delete_logs/<int:pk>/', LogsDeleteView.as_view(), name='delete_logs'),
+
     path('logs_list/', LogsListView.as_view(), name='logs_list'),
 
 ]
