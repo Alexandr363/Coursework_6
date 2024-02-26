@@ -10,6 +10,8 @@ python = "^3.12"
 django = "^5.0"
 pillow = "^10.1.0"
 psycopg2-binary = "^2.9.9"
+django-crontab = "^0.7.1"
+ipython = "^8.21.0"
 
 
 [build-system]

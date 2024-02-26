@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
 
     'newsletter_app',
     'users',
+    'django_crontab',
 ]
 
 MIDDLEWARE = [
@@ -130,6 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -138,3 +141,13 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'fuckup@oscarbot.ru'
 EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
 EMAIL_USE_SSL = True
+
+CRONJOBS = [
+    ('*/1 * * * *', 'newsletter_app.services.newsletter')
+]
+
+if not DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = BASE_DIR.joinpath('mail')

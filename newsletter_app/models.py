@@ -19,6 +19,7 @@ class Client(models.Model):
 
 
 class Newsletter(models.Model):
+    objects = models.Manager
 
     PERIODICITY_CHOISES = [
         ('Раз в день', 'Daily'),
@@ -38,7 +39,9 @@ class Newsletter(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES,
                               verbose_name='статус рассылки')
 
-    client = models.ManyToManyField(Client)
+    # client = models.ManyToManyField(Client)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True,
+                               blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
                              null=True, blank=True)
 
@@ -51,10 +54,13 @@ class Newsletter(models.Model):
 
 
 class Massage(models.Model):
+    objects = models.Manager
+
     title = models.CharField(max_length=40, verbose_name='тема письма')
     content = models.TextField(verbose_name='содержание')
 
-    newsletter = models.ManyToManyField(Newsletter)
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE,
+                                   null=True, blank=True)
 
     def __str__(self):
         return self.title
