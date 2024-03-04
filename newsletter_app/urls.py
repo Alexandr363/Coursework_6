@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from newsletter_app.apps import NewsletterAppConfig
 from newsletter_app.views import ClientListView, ClientCreateView, \
@@ -11,7 +12,7 @@ from newsletter_app.views import ClientListView, ClientCreateView, \
 app_name = NewsletterAppConfig.name
 
 urlpatterns = [
-    path('', IndexTemplateView.as_view(), name='index'),
+    path('', cache_page(60)(IndexTemplateView.as_view()), name='index'),
 
     path('create_client/', ClientCreateView.as_view(), name='create_client'),
     path('detail_client/<int:pk>/', ClientDetailView.as_view(), name='detail_client'),

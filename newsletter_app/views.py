@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import (CreateView, UpdateView, ListView,
                                   TemplateView, DetailView, DeleteView)
@@ -14,23 +15,23 @@ class IndexTemplateView(TemplateView):
 """__________Client Views_____________"""
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(LoginRequiredMixin, CreateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('newsletter:client_list')
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
     model = Client
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin,UpdateView):
     model = Client
     form_class = ClientForm
     success_url = reverse_lazy('newsletter:client_list')
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     success_url = reverse_lazy('newsletter:client_list')
 
@@ -42,23 +43,23 @@ class ClientListView(ListView):
 """__________Newsletter Views_____________"""
 
 
-class NewsletterCreateView(CreateView):
+class NewsletterCreateView(LoginRequiredMixin, CreateView):
     model = Newsletter
     form_class = NewsletterForm
     success_url = reverse_lazy('newsletter:newsletter_list')
 
 
-class NewsletterDetailView(DetailView):
+class NewsletterDetailView(LoginRequiredMixin, DetailView):
     model = Newsletter
 
 
-class NewsletterUpdateView(UpdateView):
+class NewsletterUpdateView(LoginRequiredMixin, UpdateView):
     model = Newsletter
     form_class = NewsletterForm
     success_url = reverse_lazy('newsletter:newsletter_list')
 
 
-class NewsletterDeleteView(DeleteView):
+class NewsletterDeleteView(LoginRequiredMixin, DeleteView):
     model = Newsletter
     success_url = reverse_lazy('newsletter:newsletter_list')
 
@@ -70,23 +71,23 @@ class NewsletterListView(ListView):
 """__________Massage Views_____________"""
 
 
-class MassageCreateView(CreateView):
+class MassageCreateView(LoginRequiredMixin, CreateView):
     model = Massage
     form_class = MassageForm
     success_url = reverse_lazy('newsletter:massage_list')
 
 
-class MassageDetailView(DetailView):
+class MassageDetailView(LoginRequiredMixin, DetailView):
     model = Massage
 
 
-class MassageUpdateView(UpdateView):
+class MassageUpdateView(LoginRequiredMixin, UpdateView):
     model = Massage
     form_class = MassageForm
     success_url = reverse_lazy('newsletter:massage_list')
 
 
-class MassageDeleteView(DeleteView):
+class MassageDeleteView(LoginRequiredMixin, DeleteView):
     model = Massage
     success_url = reverse_lazy('newsletter:massage_list')
 
@@ -98,23 +99,23 @@ class MassageListView(ListView):
 """__________Logs Views_____________"""
 
 
-class LogsCreateView(CreateView):
+class LogsCreateView(LoginRequiredMixin, CreateView):
     model = Logs
     form_class = LogsForm
     success_url = reverse_lazy('newsletter:logs_list')
 
 
-class LogsDetailView(DetailView):
+class LogsDetailView(LoginRequiredMixin, DetailView):
     model = Logs
 
 
-class LogsUpdateView(UpdateView):
+class LogsUpdateView(LoginRequiredMixin, UpdateView):
     model = Logs
     form_class = LogsForm
     success_url = reverse_lazy('newsletter:logs_list')
 
 
-class LogsDeleteView(DeleteView):
+class LogsDeleteView(LoginRequiredMixin, DeleteView):
     model = Logs
     success_url = reverse_lazy('newsletter:logs_list')
 

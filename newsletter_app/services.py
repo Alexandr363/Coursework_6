@@ -9,15 +9,32 @@ from django.utils import timezone
 def newsletter():
     today = timezone.now()
     start = today.replace(second=0, microsecond=0)
-    end = start + timedelta(minutes=10000)
+    end = start + timedelta(minutes=100000)
 
-    mail = Newsletter.objects.filter(time__gte=start, time__lt=end)
+    mails = Newsletter.objects.filter(time__gte=start, time__lt=end)
 
-    for i in mail:
-        for j in i.massage_set.all():
+    for mail in mails:
+
+        mail.status = 'Запущена'
+        mail.save()
+
+        for massage in mail.massage_set.all():
             send_mail(
-                subject=j.title,
-                message=j.content,
+                subject=massage.title,
+                message=massage.content,
                 from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[]
+                recipient_list=[mail.client.email]
             )
+
+        mail.status = 'Завершена'
+        mail.save()
+
+        if mail.periodicity == 'Раз в день':
+            mail.time = today + timedelta(days=1)
+            mail.save()
+        elif mail.periodicity == 'Раз в неделю':
+            mail.time = today + timedelta(days=7)
+            mail.save()
+        else:
+            mail.time = today + timedelta(days=30)
+            mail.save()
