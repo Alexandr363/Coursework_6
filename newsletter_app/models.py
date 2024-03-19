@@ -71,6 +71,7 @@ class Massage(models.Model):
 
 
 class Logs(models.Model):
+    objects = models.Manager
 
     ATTEMPT_CHOICES = [
         ('Успешна', 'Successful'),

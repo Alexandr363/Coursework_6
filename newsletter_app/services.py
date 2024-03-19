@@ -2,7 +2,7 @@ from datetime import timedelta
 
 from django.conf import settings
 from django.core.mail import send_mail
-from newsletter_app.models import Newsletter
+from newsletter_app.models import Newsletter, Logs
 from django.utils import timezone
 
 
@@ -28,6 +28,14 @@ def newsletter():
 
         mail.status = 'Завершена'
         mail.save()
+
+        log = Logs.objects.create(
+            data_of_attempt=today,
+            status_attempt='Успешна',
+            mail_server_response='Ok'
+            )
+
+        log.save()
 
         if mail.periodicity == 'Раз в день':
             mail.time = today + timedelta(days=1)
