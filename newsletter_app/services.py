@@ -1,4 +1,6 @@
 from datetime import timedelta
+from smtplib import SMTPException
+from dateutil.relativedelta import relativedelta
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -9,40 +11,40 @@ from django.utils import timezone
 def newsletter():
     today = timezone.now()
     start = today.replace(second=0, microsecond=0)
-    end = start + timedelta(minutes=100000)
+    end = start + timedelta(minutes=100_000)
 
-    mails = Newsletter.objects.filter(time__gte=start, time__lt=end)
+    mails = Newsletter.objects.select_related('massage').filter(
+        time__gte=start, time__lt=end
+    ).exclude(status='Запущена')
 
     for mail in mails:
 
         mail.status = 'Запущена'
-        mail.save()
+        mail.save(update_fields=['status'])
 
-        for massage in mail.massage_set.all():
+        try:
             send_mail(
-                subject=massage.title,
-                message=massage.content,
+                subject=mail.massage.title,
+                message=mail.massage.content,
                 from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[mail.client.email]
+                recipient_list=list(mail.clients.values_list(
+                    'email',
+                    flat=True)),
             )
-
-        mail.status = 'Завершена'
-        mail.save()
-
-        log = Logs.objects.create(
-            data_of_attempt=today,
-            status_attempt='Успешна',
-            mail_server_response='Ok'
-            )
-
-        log.save()
+        except SMTPException as e:
+            Logs.log_error(mail, error_msg=str(e))
+        else:
+            Logs.log_success(mail)
+        finally:
+            mail.status = 'Завершена'
 
         if mail.periodicity == 'Раз в день':
-            mail.time = today + timedelta(days=1)
+            mail.time = today + relativedelta(days=1)
             mail.save()
         elif mail.periodicity == 'Раз в неделю':
-            mail.time = today + timedelta(days=7)
+            mail.time = today + relativedelta(weeks=1)
             mail.save()
         else:
-            mail.time = today + timedelta(days=30)
-            mail.save()
+            mail.time = today + relativedelta(months=1)
+
+        mail.save()
